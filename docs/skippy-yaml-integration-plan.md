@@ -19,6 +19,10 @@ Discovery is recorded in [discovery/skippy-yaml-discovery.md](discovery/skippy-y
 - A client can have several files with conflicting identity data (phone, website, name). The adapter merges per client, requires a human pick on conflict and records it in `provenance`.
 - Validator, normalizer, manifest and field registry live in a **separate Python package (`quill-site-builder`)**, not in the Quill plugin.
 - The Acme Plumbing and starter themes are the first `local-service` family: the starter plus the agent contract become the Phase 3 generator template, their guard tests become its acceptance gates, and their activation setup (pages, seeded-once menu, seed images, form creation) is generalized into the Phase 4 provisioner.
+- Structured data (LocalBusiness/Service JSON-LD) is owned by the RankRocket SEO Control Layer; themes do not emit it.
+- Each client gets one human-maintained BASE YAML (new `site_profile` format). Other Skippy files stay YACSS-only.
+- Pilot: Salvo Metal Works via `general.yaml`.
+- Phase 1 first slice shipped in `PenZenMaster/quill-site-builder` (schema v1.0, safe loader, validator, `validate` CLI, 26 tests).
 - Large legacy lists (up to 428 cities, 253 services) need a curated "featured" subset for navigation and an index for city pages.
 
 ## Boundaries and responsibilities

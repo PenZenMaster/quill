@@ -103,15 +103,18 @@ Fully fictional, legacy shape, committed under `docs/discovery/fixtures/`:
 
 A genuinely multi-location fixture cannot exist in the legacy shape (one address per file); it will be authored in the new `site_profile` format in Phase 1.
 
-## Resolved and open questions
+## Decisions (owner answers, 2026-10-17)
 
-Resolved by the corpus:
-1. Email and category keys: emails never conflict (coalesce); categories do conflict in 14 files, so `Primary Business Category` wins and the conflict is reported.
-2. Citation URLs versus social profiles: must be separate fields (111 non-social entries).
+1. **Schema/structured-data owner:** the RankRocket SEO Control Layer. Generated themes do not emit LocalBusiness JSON-LD; the manifest supplies verified facts to the plugin. Encoded in the schema as `seo.schema_owner`.
+2. **Profile storage (recommendation, pending owner confirmation):** a new private repo `quill-client-profiles`, one folder per client: `clients/<client-slug>/base.yaml` (the human-maintained BASE file) and `clients/<client-slug>/approved/<digest>.json` (immutable snapshots with provenance). Rationale: Skippy's `client_yaml/` is gitignored and shared with `rr_yacss_factory`, and the builder repo must stay free of client data.
+3. **Tooling repo:** new private repo `PenZenMaster/quill-site-builder` (created).
+4. **Pilot:** Salvo Metal Works, using `client_yaml/salvo_metal_works/general.yaml` (website is the site root, has logo, hero, map and FAQ). Note: most other Salvo files use a product-category URL as `* Website`; the adapter must reduce a deep URL to its origin.
+5. **Conflicts:** human pick. The owner will adopt an SOP requiring one BASE YAML file per client. Several files per client exist because they are shared with `rr_yacss_factory`. The adapter reads the BASE file for site facts and treats the other files as legacy YACSS inputs only.
 
-Open:
-3. Which SEO plugin owns schema on client sites (Rank Rocket plugin versus another)?
-4. Where do approved profile snapshots live (per-client private repo, or Skippy `client_yaml/`)? Note that client files currently live only in a gitignored folder.
-5. Repo name: `quill-site-builder`, or a package inside `skippy_yaml_builder`?
-6. Which of the 13 clients is the pilot (Phase 6)? Choose one with a logo, hero image and a single consistent file.
-7. How should the adapter choose among drifted values (newest file, most common value, or require a human pick)? Recommendation: require a human pick and record it in provenance.
+## Resolved by the corpus
+1. Email keys never conflict (coalesce); category keys conflict in 14 files, so `Primary Business Category` wins and the conflict is reported.
+2. Citation URLs and social profiles must be separate fields (111 non-social entries).
+
+## Open
+- Confirm the `quill-client-profiles` repo recommendation above.
+- What the BASE file format is: the new `site_profile` directly, or the legacy shape plus a small `site:` extension block? Recommendation: the new `site_profile` format, with `from-skippy` used once to bootstrap each client's BASE file.
