@@ -16,7 +16,7 @@ edits content only.
 - Tests for `Quill_Admin` rendering (needs more WP stubs).
 
 ## Next
-- Verify first GitHub Actions run; manual smoke test in a real WordPress install (activate, edit a field, view History).
+- Manual smoke test in a real WordPress install (activate, edit a field, view History).
 - Document the theme-generation contract for Claude (based on `docs/agent-instructions.md`).
 
 ## Workflow
