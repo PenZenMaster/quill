@@ -1,0 +1,46 @@
+# Fictional fixture in the Skippy YAML Builder v1.3.0 legacy shape.
+# Service-area business: no public street address, many target cities.
+# No real client data. Domains use example.com, phone uses the 555-01xx range.
+"* Client Name": "Sample Mobile Locksmith"
+"* Business Category": "Locksmith"
+"* Phone": "(555) 010-0177"
+"Email": ""
+"* Website": "https://www.example.org"
+"Street Address": ""
+"City": "Sampleton"
+"State": "OH"
+"ZIP": "44000"
+"Country": "USA"
+"Broker Name": ""
+"Broker Website": ""
+"Broker Phone": ""
+"Google Maps Embed Code": ""
+"* Target Cities (one per line)":
+  - "Sampleton"
+  - "Testburg"
+  - "Mockford"
+  - "Demoville"
+  - "Fakeland"
+"* Services (one per line)":
+  - "Car Lockout"
+  - "Rekeying"
+  - "Smart Lock Installation"
+"Social/Citation URLs (one per line)": []
+"Hero Image URL": ""
+"City Page Hero Image Base URL": ""
+"Logo URL": ""
+"Contact Email Address": "dispatch@example.org"
+"Primary Business Category": "Locksmith"
+"FAQ Questions & Answers": []
+"YACSS Build Type": "Masspage_Silo_Local"
+"YACSS Template": "default"
+"YACSS Bucket Keyword": "sample-mobile-locksmith"
+"YACSS Tier0 Pages": "1"
+"YACSS Tiers (tier:pages, one per line)": ""
+"YACSS Tone": "professional"
+"YACSS Language": "en"
+"YACSS Cloud Account IDs (comma separated)": ""
+"YACSS Diagram Tier Cloud Account IDs": []
+"YACSS Diagram Page Titles (one per line)": []
+"YACSS Diagram Content": ""
+city_embeds: {}

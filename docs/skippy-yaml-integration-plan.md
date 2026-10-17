@@ -1,6 +1,6 @@
 # Skippy YAML Builder → Quill Integration Plan
 
-Status: **Proposed implementation** · Owner: Rank Rocket Co · Date: 2026-10-17  
+Status: **Phase 0 complete; Phases 1 onward proposed** · Owner: Rank Rocket Co · Date: 2026-10-17  
 Scope: build-time generation of custom WordPress themes using the existing Quill content-editing contract.
 
 ## Decision and objectives
@@ -10,6 +10,16 @@ Scope: build-time generation of custom WordPress themes using the existing Quill
 This is a proposed architecture, not an implemented integration. **Before coding, locate and inspect the actual Skippy YAML Builder implementation and its current sample YAMLs**; the exact schema, dependencies, and existing behavior are not verified here. Preserve backward compatibility using an explicit migrator if necessary.
 
 Success: given a sanitized sample profile, a developer can deterministically validate it, produce a reproducible theme build manifest, generate a Quill-compatible theme, deploy to staging, and verify SEO, accessibility, editing, and safe reruns without erasing client changes.
+
+## Phase 0 outcome (2026-10-17)
+
+Discovery is recorded in [discovery/skippy-yaml-discovery.md](discovery/skippy-yaml-discovery.md). Decisions that refine this plan:
+
+- Skippy's existing YAML is a flat, label-keyed file for YACSS link-building with no schema version. It is **not extended**. A new versioned `site_profile` schema is added, with a one-way `from-skippy` adapter.
+- A client can have several files with conflicting identity data (phone, website, name). The adapter merges per client, requires a human pick on conflict and records it in `provenance`.
+- Validator, normalizer, manifest and field registry live in a **separate Python package (`quill-site-builder`)**, not in the Quill plugin.
+- The Acme Plumbing and starter themes are the first `local-service` family: the starter plus the agent contract become the Phase 3 generator template, their guard tests become its acceptance gates, and their activation setup (pages, seeded-once menu, seed images, form creation) is generalized into the Phase 4 provisioner.
+- Large legacy lists (up to 428 cities, 253 services) need a curated "featured" subset for navigation and an index for city pages.
 
 ## Boundaries and responsibilities
 

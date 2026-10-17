@@ -1,0 +1,52 @@
+# Fictional fixture in the Skippy YAML Builder v1.3.0 legacy shape.
+# No real client data. Domains use example.com, phone uses the 555-01xx range.
+"* Client Name": "Example Plumbing Co"
+"* Business Category": "Plumber"
+"* Phone": "(555) 010-0142"
+"Email": "service@example.com"
+"* Website": "https://www.example.com"
+"Street Address": "120 Main Street"
+"City": "Exampleville"
+"State": "IL"
+"ZIP": "60000"
+"Country": "USA"
+"Broker Name": ""
+"Broker Website": ""
+"Broker Phone": ""
+"Google Maps Embed Code": "<iframe src=\"https://www.google.com/maps/embed?pb=example\" width=\"600\" height=\"450\" loading=\"lazy\"></iframe>"
+"* Target Cities (one per line)":
+  - "Exampleville"
+  - "Sampleton"
+  - "Testburg"
+"* Services (one per line)":
+  - "Emergency Plumbing"
+  - "Drain Cleaning"
+  - "Water Heater Installation"
+"Social/Citation URLs (one per line)":
+  - "https://www.facebook.com/exampleplumbing"
+"Hero Image URL": "https://www.example.com/images/hero.jpg"
+"City Page Hero Image Base URL": ""
+"Logo URL": "https://www.example.com/images/logo.png"
+"Contact Email Address": "service@example.com"
+"Primary Business Category": "Plumber"
+"Legal / Company Name": "Example Plumbing Company LLC"
+"FAQ Questions & Answers":
+  - question: "Do you offer emergency service?"
+    answer: "Yes. Call (555) 010-0142 at any hour."
+  - question: "Which areas do you serve?"
+    answer: "Exampleville, Sampleton and Testburg."
+"YACSS Build Type": "Diagram"
+"YACSS Template": "default"
+"YACSS Bucket Keyword": "example-plumbing-exampleville"
+"YACSS Tier0 Pages": "1"
+"YACSS Tiers (tier:pages, one per line)": "1:3\n2:3"
+"YACSS Tone": "friendly"
+"YACSS Language": "en"
+"YACSS Cloud Account IDs (comma separated)": ""
+"YACSS Diagram Tier Cloud Account IDs":
+  - tier: 1
+    cloud_account_ids: ""
+"YACSS Diagram Page Titles (one per line)":
+  - "Emergency Plumbing in Exampleville"
+"YACSS Diagram Content": "Placeholder build copy. Not used by Quill."
+city_embeds: {}
