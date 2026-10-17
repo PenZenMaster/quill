@@ -1,0 +1,40 @@
+# Module/Script Name: CI workflow
+# Path: .github/workflows/ci.yml
+#
+# Description:
+# Runs phpcs (WordPress Coding Standards) and phpunit on every push and PR,
+# on the minimum supported PHP (7.4) and a current release (8.3).
+#
+# Author(s):
+# Rank Rocket Co (C) Copyright 2026 - All Rights Reserved
+#
+# Comments:
+# v1.00 - Initial release.
+
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  quality:
+    name: "PHP ${{ matrix.php }}: phpcs + phpunit"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.3' ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer
+      - uses: ramsey/composer-install@v3
+      - name: phpcs
+        run: dev-vendor/bin/phpcs --standard=phpcs.xml.dist
+      - name: phpunit
+        run: dev-vendor/bin/phpunit --configuration phpunit.xml.dist

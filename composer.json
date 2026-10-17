@@ -1,0 +1,37 @@
+{
+  "name": "rankrocket/quill",
+  "description": "Quill - frontend content editing for custom-themed WordPress sites (fork of Pencil by Rino).",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=7.4"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.9",
+    "wp-coding-standards/wpcs": "^3.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "phpunit/phpunit": "^9.6",
+    "yoast/phpunit-polyfills": "^2.0"
+  },
+  "config": {
+    "vendor-dir": "dev-vendor",
+    "platform": {
+      "php": "7.4.33"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "php -r \"@copy('hooks/pre-commit', '.git/hooks/pre-commit'); @chmod('.git/hooks/pre-commit', 0755); echo 'pre-commit hook installed.\n';\""
+    ],
+    "post-update-cmd": [
+      "php -r \"@copy('hooks/pre-commit', '.git/hooks/pre-commit'); @chmod('.git/hooks/pre-commit', 0755); echo 'pre-commit hook updated.\n';\""
+    ],
+    "lint":     "phpcs --standard=phpcs.xml.dist",
+    "lint-fix": "phpcbf --standard=phpcs.xml.dist",
+    "test":     "phpunit --configuration phpunit.xml.dist",
+    "qa":       ["@lint", "@test"]
+  }
+}

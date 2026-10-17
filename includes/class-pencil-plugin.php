@@ -7,6 +7,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Frontend editor bootstrap and REST save endpoint.
+ */
 final class Pencil_Plugin {
 	/**
 	 * Register plugin hooks.

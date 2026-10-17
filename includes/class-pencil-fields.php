@@ -7,6 +7,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Pencil field registration and value storage.
+ */
 final class Pencil_Fields {
 	/**
 	 * Supported field types.

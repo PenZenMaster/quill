@@ -7,6 +7,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Registers the Pencil admin screens and assets.
+ */
 final class Pencil_Admin {
 	const MENU_SLUG = 'pencil-by-rino';
 

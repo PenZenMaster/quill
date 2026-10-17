@@ -24,7 +24,7 @@ function pencil_internal_edit_attributes( $field ) {
 		'data-pencil-field' => $field['id'],
 		'data-pencil-label' => $field['schema']['label'],
 		'data-pencil-type'  => $field['schema']['type'],
-		'tabindex'       => '-1',
+		'tabindex'          => '-1',
 	);
 
 	if ( ! empty( $field['schema']['max_length'] ) ) {
@@ -223,12 +223,12 @@ if ( ! function_exists( 'pencil_image' ) ) {
 		}
 
 		if ( '' !== $field['id'] && Pencil_Plugin::can_edit() ) {
-			$attrs['class']                  = trim( $attrs['class'] . ' pencil-field pencil-field--image' );
+			$attrs['class']                     = trim( $attrs['class'] . ' pencil-field pencil-field--image' );
 			$attrs['data-pencil-field']         = $field['id'];
 			$attrs['data-pencil-label']         = $field['schema']['label'];
 			$attrs['data-pencil-type']          = 'image';
 			$attrs['data-pencil-attachment-id'] = (string) $attachment_id;
-			$attrs['tabindex']               = '-1';
+			$attrs['tabindex']                  = '-1';
 		}
 
 		echo wp_get_attachment_image( $attachment_id, $field['schema']['size'], false, $attrs );
@@ -261,7 +261,7 @@ if ( ! function_exists( 'pencil_managed_region_open' ) ) {
 		$action_label = isset( $args['action_label'] ) && $args['action_label']
 			? sanitize_text_field( $args['action_label'] )
 			: __( 'Edit', 'pencil-by-rino' );
-		$classes  = array( 'pencil-managed-region' );
+		$classes      = array( 'pencil-managed-region' );
 
 		if ( ! empty( $args['class'] ) ) {
 			$extra_classes = preg_split( '/\s+/', (string) $args['class'] );

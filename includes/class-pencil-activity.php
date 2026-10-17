@@ -7,6 +7,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Records and lists content change history.
+ */
 final class Pencil_Activity {
 	/**
 	 * Database schema version.
@@ -82,11 +85,11 @@ final class Pencil_Activity {
 	/**
 	 * Record a successful field change.
 	 *
-	 * @param string                 $field_id Stable field ID.
-	 * @param array<string, mixed>   $schema   Registered field schema.
-	 * @param int|string|null        $old_value Previous value.
-	 * @param int|string             $new_value Saved value.
-	 * @param int                    $page_id Page where the edit was made.
+	 * @param string               $field_id Stable field ID.
+	 * @param array<string, mixed> $schema   Registered field schema.
+	 * @param int|string|null      $old_value Previous value.
+	 * @param int|string           $new_value Saved value.
+	 * @param int                  $page_id Page where the edit was made.
 	 * @return bool
 	 */
 	public static function record( $field_id, $schema, $old_value, $new_value, $page_id = 0 ) {
