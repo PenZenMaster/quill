@@ -1,5 +1,4 @@
-=== Pencil by Rino ===
-Contributors: rinodeboer
+=== Quill ===
 Tags: frontend editing, ai, custom theme, content editing, client editing
 Requires at least: 6.4
 Tested up to: 7.1
@@ -12,49 +11,49 @@ Frontend content editing for AI-built WordPress themes. The theme owns the desig
 
 == Description ==
 
-Pencil is the missing piece for websites built with an AI tool like Codex or Claude instead of a page builder.
+Quill is the missing piece for websites built with an AI tool like Codex or Claude instead of a page builder.
 
-An AI can build a fast, custom WordPress theme. But once it is done, the client cannot change a single word without calling you. Pencil fixes that. Every piece of static text, every image and every button the AI writes into the theme becomes a field the client can edit right on the live page, with one **Open Pencil** button.
+An AI can build a fast, custom WordPress theme. But once it is done, the client cannot change a single word without calling you. Quill fixes that. Every piece of static text, every image and every button the AI writes into the theme becomes a field the client can edit right on the live page, with one **Open Quill** button.
 
 The theme keeps full control over layout, styling and behaviour. Clients only change content. They cannot break the design, because the design was never theirs to touch.
 
 **One field, one owner**
 
-Content that already belongs to another system stays there. A product price stays in WooCommerce, a custom field stays in ACF, a post title stays in WordPress. Pencil marks that output as a read-only region with a link to the right edit screen, and never stores a second copy.
+Content that already belongs to another system stays there. A product price stays in WooCommerce, a custom field stays in ACF, a post title stays in WordPress. Quill marks that output as a read-only region with a link to the right edit screen, and never stores a second copy.
 
-**Important: Pencil does nothing on its own**
+**Important: Quill does nothing on its own**
 
-Pencil needs an AI agent to build the theme. The plugin ships with instructions for that agent, in the **Get started** tab. It will not make an existing page builder or block theme editable, and the quality of the site depends on the model you use, not on this plugin.
+Quill needs an AI agent to build the theme. The plugin ships with instructions for that agent, in the **Get started** tab. It will not make an existing page builder or block theme editable, and the quality of the site depends on the model you use, not on this plugin.
 
 **What you get**
 
 * Single-line text, rich text (bold, italic, links, lists), buttons with editable text and link, and Media Library images
 * Fixed image frames, so a replaced image never changes the layout
 * Per-page content for templates shared by several pages
-* An **Open Pencil** button on the frontend for Administrators and Editors
+* An **Open Quill** button on the frontend for Administrators and Editors
 * A **History** tab listing who changed what, where and when, with before and after
 * A **Get started** tab with separate workflows for building from an idea or converting an HTML template
 * Copyable starter prompts and complete instructions for your AI coding agent
 * A reusable default theme screenshot for projects that do not yet have a custom one
-* PHP helpers for the theme: `pencil_text()`, `pencil_richtext()`, `pencil_button()`, `pencil_image()`, and `pencil_managed_region_open()` / `pencil_managed_region_close()`
+* PHP helpers for the theme: `quill_text()`, `quill_richtext()`, `quill_button()`, `quill_image()`, and `quill_managed_region_open()` / `quill_managed_region_close()`
 
 == Installation ==
 
-1. Install and activate Pencil.
-2. Open **Pencil → Get started** and choose whether to start from an idea or convert an existing HTML template.
+1. Install and activate Quill.
+2. Open **Quill → Get started** and choose whether to start from an idea or convert an existing HTML template.
 3. Copy the matching starter prompt and give it to a coding tool such as Codex, Claude, Cursor, or another agent with access to the WordPress project.
 4. Activate the theme the agent built. Check that every public page appears under **Pages** and that the homepage is set as the static front page.
-5. Open the site while logged in as an Administrator or Editor and click **Open Pencil**.
+5. Open the site while logged in as an Administrator or Editor and click **Open Quill**.
 
 == Frequently Asked Questions ==
 
-= Does Pencil work with my existing theme or page builder? =
+= Does Quill work with my existing theme or page builder? =
 
-No. Pencil only works with a theme that was built to use its helpers. Sites built with a page builder or with block templates are not supported.
+No. Quill only works with a theme that was built to use its helpers. Sites built with a page builder or with block templates are not supported.
 
 = Who can edit content? =
 
-Administrators and Editors. Use the `pencil_can_edit` filter to change that.
+Administrators and Editors. Use the `quill_can_edit` filter to change that.
 
 = Is my content safe when the theme changes? =
 

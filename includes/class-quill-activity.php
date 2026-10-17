@@ -2,7 +2,7 @@
 /**
  * Lightweight activity records for frontend content changes.
  *
- * @package Pencil
+ * @package Quill
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Records and lists content change history.
  */
-final class Pencil_Activity {
+final class Quill_Activity {
 	/**
 	 * Database schema version.
 	 *
@@ -33,7 +33,7 @@ final class Pencil_Activity {
 	 * @return void
 	 */
 	public static function maybe_install() {
-		if ( self::DB_VERSION === get_option( 'pencil_activity_db_version' ) ) {
+		if ( self::DB_VERSION === get_option( 'quill_activity_db_version' ) ) {
 			return;
 		}
 
@@ -78,7 +78,7 @@ final class Pencil_Activity {
 		);
 
 		if ( $table_name === $table_exists ) {
-			update_option( 'pencil_activity_db_version', self::DB_VERSION, false );
+			update_option( 'quill_activity_db_version', self::DB_VERSION, false );
 		}
 	}
 
@@ -136,7 +136,7 @@ final class Pencil_Activity {
 
 		$limit = min( 200, max( 1, absint( $limit ) ) );
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom activity-log table has no core WP API; results are only read on the low-traffic Pencil admin screen.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom activity-log table has no core WP API; results are only read on the low-traffic Quill admin screen.
 		return $wpdb->get_results(
 			$wpdb->prepare(
 				'SELECT * FROM %i ORDER BY created_at DESC, activity_id DESC LIMIT %d',
@@ -154,7 +154,7 @@ final class Pencil_Activity {
 	private static function table_name() {
 		global $wpdb;
 
-		return $wpdb->prefix . 'pencil_activity';
+		return $wpdb->prefix . 'quill_activity';
 	}
 
 	/**

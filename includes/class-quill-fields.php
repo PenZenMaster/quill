@@ -1,16 +1,16 @@
 <?php
 /**
- * Pencil field registration and value storage.
+ * Quill field registration and value storage.
  *
- * @package Pencil
+ * @package Quill
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Pencil field registration and value storage.
+ * Quill field registration and value storage.
  */
-final class Pencil_Fields {
+final class Quill_Fields {
 	/**
 	 * Supported field types.
 	 *
@@ -76,7 +76,7 @@ final class Pencil_Fields {
 			return self::$fields[ $id ];
 		}
 
-		$registry = get_option( 'pencil_field_registry', array() );
+		$registry = get_option( 'quill_field_registry', array() );
 
 		if ( ! is_array( $registry ) || ! isset( $registry[ $id ] ) || ! is_array( $registry[ $id ] ) ) {
 			return null;
@@ -119,8 +119,8 @@ final class Pencil_Fields {
 
 		if ( ! $schema || ! in_array( $schema['type'], self::TYPES, true ) ) {
 			return new WP_Error(
-				'pencil_unknown_field',
-				__( 'This content field is no longer available.', 'pencil-by-rino' ),
+				'quill_unknown_field',
+				__( 'This content field is no longer available.', 'quill' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -134,17 +134,17 @@ final class Pencil_Fields {
 		$values        = self::get_values();
 		$values[ $id ] = $value;
 
-		if ( false === get_option( 'pencil_values', false ) ) {
-			add_option( 'pencil_values', $values, '', 'no' );
+		if ( false === get_option( 'quill_values', false ) ) {
+			add_option( 'quill_values', $values, '', 'no' );
 		} else {
-			update_option( 'pencil_values', $values, false );
+			update_option( 'quill_values', $values, false );
 		}
 
 		return $value;
 	}
 
 	/**
-	 * Sanitize rich text to the restricted Pencil formatting set.
+	 * Sanitize rich text to the restricted Quill formatting set.
 	 *
 	 * @param mixed $value Raw HTML or plain text.
 	 * @return string
@@ -242,8 +242,8 @@ final class Pencil_Fields {
 		if ( ! $post_id ) {
 			_doing_it_wrong(
 				__METHOD__,
-				esc_html__( 'A page-scoped Pencil field was rendered without a page. It is stored as a site-wide field instead.', 'pencil-by-rino' ),
-				esc_html( PENCIL_VERSION )
+				esc_html__( 'A page-scoped Quill field was rendered without a page. It is stored as a site-wide field instead.', 'quill' ),
+				esc_html( QUILL_VERSION )
 			);
 
 			return $id;
@@ -264,8 +264,8 @@ final class Pencil_Fields {
 		if ( ! preg_match( '/^[a-z0-9][a-z0-9._-]*$/', $id ) ) {
 			_doing_it_wrong(
 				__METHOD__,
-				esc_html__( 'Pencil field IDs may contain lowercase letters, numbers, dots, dashes, and underscores.', 'pencil-by-rino' ),
-				esc_html( PENCIL_VERSION )
+				esc_html__( 'Quill field IDs may contain lowercase letters, numbers, dots, dashes, and underscores.', 'quill' ),
+				esc_html( QUILL_VERSION )
 			);
 
 			return '';
@@ -331,8 +331,8 @@ final class Pencil_Fields {
 
 				if ( ! $attachment_id || 'attachment' !== get_post_type( $attachment_id ) || ! wp_attachment_is_image( $attachment_id ) ) {
 					return new WP_Error(
-						'pencil_invalid_image',
-						__( 'Choose an image from the Media Library.', 'pencil-by-rino' ),
+						'quill_invalid_image',
+						__( 'Choose an image from the Media Library.', 'quill' ),
 						array( 'status' => 400 )
 					);
 				}
@@ -353,16 +353,16 @@ final class Pencil_Fields {
 
 				if ( '' === $text ) {
 					return new WP_Error(
-						'pencil_button_text_required',
-						__( 'Add the button text.', 'pencil-by-rino' ),
+						'quill_button_text_required',
+						__( 'Add the button text.', 'quill' ),
 						array( 'status' => 400 )
 					);
 				}
 
 				if ( '' === $url ) {
 					return new WP_Error(
-						'pencil_button_url_required',
-						__( 'Add a valid link, such as https://example.com or /contact.', 'pencil-by-rino' ),
+						'quill_button_url_required',
+						__( 'Add a valid link, such as https://example.com or /contact.', 'quill' ),
 						array( 'status' => 400 )
 					);
 				}
@@ -411,10 +411,10 @@ final class Pencil_Fields {
 	 */
 	private static function length_error( $max_length ) {
 		return new WP_Error(
-			'pencil_value_too_long',
+			'quill_value_too_long',
 			sprintf(
 				/* translators: %d: Maximum number of characters. */
-				__( 'Keep this text to %d characters or fewer.', 'pencil-by-rino' ),
+				__( 'Keep this text to %d characters or fewer.', 'quill' ),
 				absint( $max_length )
 			),
 			array( 'status' => 400 )
@@ -447,12 +447,12 @@ final class Pencil_Fields {
 	}
 
 	/**
-	 * Return all saved Pencil values.
+	 * Return all saved Quill values.
 	 *
 	 * @return array<string, mixed>
 	 */
 	private static function get_values() {
-		$values = get_option( 'pencil_values', array() );
+		$values = get_option( 'quill_values', array() );
 
 		return is_array( $values ) ? $values : array();
 	}
@@ -465,7 +465,7 @@ final class Pencil_Fields {
 	 * @return void
 	 */
 	private static function persist_schema( $id, $schema ) {
-		$registry = get_option( 'pencil_field_registry', array() );
+		$registry = get_option( 'quill_field_registry', array() );
 		$registry = is_array( $registry ) ? $registry : array();
 
 		if ( isset( $registry[ $id ] ) && $schema === $registry[ $id ] ) {
@@ -474,10 +474,10 @@ final class Pencil_Fields {
 
 		$registry[ $id ] = $schema;
 
-		if ( false === get_option( 'pencil_field_registry', false ) ) {
-			add_option( 'pencil_field_registry', $registry, '', 'no' );
+		if ( false === get_option( 'quill_field_registry', false ) ) {
+			add_option( 'quill_field_registry', $registry, '', 'no' );
 		} else {
-			update_option( 'pencil_field_registry', $registry, false );
+			update_option( 'quill_field_registry', $registry, false );
 		}
 	}
 }

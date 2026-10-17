@@ -1,5 +1,5 @@
 /**
- * Pencil by Rino - admin page tabs and copy buttons.
+ * Quill - admin page tabs and copy buttons.
  */
 ( function () {
 	'use strict';
@@ -32,7 +32,7 @@
 
 		links.forEach( function ( link ) {
 			var active = link.getAttribute( 'data-tab' ) === name;
-			link.classList.toggle( 'pencil-header__link--active', active );
+			link.classList.toggle( 'quill-header__link--active', active );
 			if ( active ) {
 				link.setAttribute( 'aria-current', 'page' );
 			} else {
@@ -53,7 +53,7 @@
 
 	showTab( window.location.hash.replace( '#', '' ) );
 
-	// A link to admin.php?page=pencil#get-started from elsewhere in the admin.
+	// A link to admin.php?page=quill#get-started from elsewhere in the admin.
 	window.addEventListener( 'hashchange', function () {
 		showTab( window.location.hash.replace( '#', '' ) );
 	} );
@@ -69,7 +69,7 @@
 
 				buttons.forEach( function ( other ) {
 					var active = other === button;
-					other.classList.toggle( 'pencil-subtabs__btn--active', active );
+					other.classList.toggle( 'quill-subtabs__btn--active', active );
 					other.setAttribute( 'aria-selected', active ? 'true' : 'false' );
 				} );
 

@@ -22,7 +22,7 @@ final class TemplateFunctionsTest extends TestCase {
 	public function test_text_outputs_escaped_default_for_visitors(): void {
 		$html = $this->capture(
 			function () {
-				pencil_text( 'hero.title', array( 'default' => 'Fish & Chips' ) );
+				quill_text( 'hero.title', array( 'default' => 'Fish & Chips' ) );
 			}
 		);
 
@@ -34,14 +34,14 @@ final class TemplateFunctionsTest extends TestCase {
 
 		$html = $this->capture(
 			function () {
-				pencil_text( 'hero.title', array( 'default' => 'Hi', 'label' => 'Title' ) );
+				quill_text( 'hero.title', array( 'default' => 'Hi', 'label' => 'Title' ) );
 			}
 		);
 
-		$this->assertStringContainsString( '<span class="pencil-field"', $html );
-		$this->assertStringContainsString( 'data-pencil-field="hero.title"', $html );
-		$this->assertStringContainsString( 'data-pencil-label="Title"', $html );
-		$this->assertStringContainsString( 'data-pencil-max-length="160"', $html );
+		$this->assertStringContainsString( '<span class="quill-field"', $html );
+		$this->assertStringContainsString( 'data-quill-field="hero.title"', $html );
+		$this->assertStringContainsString( 'data-quill-label="Title"', $html );
+		$this->assertStringContainsString( 'data-quill-max-length="160"', $html );
 		$this->assertStringContainsString( 'tabindex="-1"', $html );
 	}
 
@@ -50,23 +50,23 @@ final class TemplateFunctionsTest extends TestCase {
 
 		$html = $this->capture(
 			function () {
-				pencil_text( 'BAD ID', array( 'default' => 'Safe' ) );
+				quill_text( 'BAD ID', array( 'default' => 'Safe' ) );
 			}
 		);
 
 		$this->assertSame( 'Safe', $html );
 	}
 
-	public function test_richtext_always_wrapped_in_pencil_richtext_div(): void {
+	public function test_richtext_always_wrapped_in_quill_richtext_div(): void {
 		$html = $this->capture(
 			function () {
-				pencil_richtext( 'intro', array( 'default' => 'Hello <strong>you</strong>', 'class' => 'lead big' ) );
+				quill_richtext( 'intro', array( 'default' => 'Hello <strong>you</strong>', 'class' => 'lead big' ) );
 			}
 		);
 
-		$this->assertStringStartsWith( '<div class="pencil-richtext lead big">', $html );
+		$this->assertStringStartsWith( '<div class="quill-richtext lead big">', $html );
 		$this->assertStringContainsString( '<strong>you</strong>', $html );
-		$this->assertStringNotContainsString( 'data-pencil-field', $html );
+		$this->assertStringNotContainsString( 'data-quill-field', $html );
 	}
 
 	public function test_richtext_adds_edit_attributes_for_editors(): void {
@@ -74,18 +74,18 @@ final class TemplateFunctionsTest extends TestCase {
 
 		$html = $this->capture(
 			function () {
-				pencil_richtext( 'intro', array( 'default' => 'Hello' ) );
+				quill_richtext( 'intro', array( 'default' => 'Hello' ) );
 			}
 		);
 
-		$this->assertStringContainsString( 'pencil-richtext pencil-field', $html );
-		$this->assertStringContainsString( 'data-pencil-type="richtext"', $html );
+		$this->assertStringContainsString( 'quill-richtext quill-field', $html );
+		$this->assertStringContainsString( 'data-quill-type="richtext"', $html );
 	}
 
 	public function test_button_renders_nothing_when_empty_for_visitors(): void {
 		$html = $this->capture(
 			function () {
-				pencil_button( 'cta' );
+				quill_button( 'cta' );
 			}
 		);
 
@@ -95,7 +95,7 @@ final class TemplateFunctionsTest extends TestCase {
 	public function test_button_renders_link_with_default_text_and_url(): void {
 		$html = $this->capture(
 			function () {
-				pencil_button( 'cta', array( 'default' => array( 'text' => 'Call us', 'url' => '/contact' ), 'class' => 'btn' ) );
+				quill_button( 'cta', array( 'default' => array( 'text' => 'Call us', 'url' => '/contact' ), 'class' => 'btn' ) );
 			}
 		);
 
@@ -105,7 +105,7 @@ final class TemplateFunctionsTest extends TestCase {
 	public function test_button_blank_target_adds_noopener(): void {
 		$html = $this->capture(
 			function () {
-				pencil_button( 'cta', array( 'default' => array( 'text' => 'Go', 'url' => 'https://x.test' ), 'target' => '_blank' ) );
+				quill_button( 'cta', array( 'default' => array( 'text' => 'Go', 'url' => 'https://x.test' ), 'target' => '_blank' ) );
 			}
 		);
 
@@ -115,11 +115,11 @@ final class TemplateFunctionsTest extends TestCase {
 	public function test_button_before_after_wraps_text_in_span(): void {
 		$html = $this->capture(
 			function () {
-				pencil_button( 'cta', array( 'default' => array( 'text' => 'Go', 'url' => '/x' ), 'before' => '<i>*</i>' ) );
+				quill_button( 'cta', array( 'default' => array( 'text' => 'Go', 'url' => '/x' ), 'before' => '<i>*</i>' ) );
 			}
 		);
 
-		$this->assertStringContainsString( '<span class="pencil-button__text">Go</span>', $html );
+		$this->assertStringContainsString( '<span class="quill-button__text">Go</span>', $html );
 	}
 
 	public function test_button_empty_shows_for_editors_with_hash_href(): void {
@@ -127,18 +127,18 @@ final class TemplateFunctionsTest extends TestCase {
 
 		$html = $this->capture(
 			function () {
-				pencil_button( 'cta' );
+				quill_button( 'cta' );
 			}
 		);
 
 		$this->assertStringContainsString( 'href="#"', $html );
-		$this->assertStringContainsString( 'data-pencil-type="button"', $html );
+		$this->assertStringContainsString( 'data-quill-type="button"', $html );
 	}
 
 	public function test_image_renders_nothing_without_valid_attachment(): void {
 		$html = $this->capture(
 			function () {
-				pencil_image( 'hero.image', array( 'default' => 99 ) );
+				quill_image( 'hero.image', array( 'default' => 99 ) );
 			}
 		);
 
@@ -150,14 +150,14 @@ final class TemplateFunctionsTest extends TestCase {
 
 		$html = $this->capture(
 			function () {
-				pencil_image( 'hero.image', array( 'default' => 7, 'aspect_ratio' => '16/9', 'class' => 'hero', 'loading' => 'lazy' ) );
+				quill_image( 'hero.image', array( 'default' => 7, 'aspect_ratio' => '16/9', 'class' => 'hero', 'loading' => 'lazy' ) );
 			}
 		);
 
 		$this->assertStringContainsString( 'class="hero"', $html );
 		$this->assertStringContainsString( 'style="aspect-ratio:16 / 9;object-fit:cover"', $html );
 		$this->assertStringContainsString( 'loading="lazy"', $html );
-		$this->assertStringNotContainsString( 'data-pencil-field', $html );
+		$this->assertStringNotContainsString( 'data-quill-field', $html );
 	}
 
 	public function test_image_adds_edit_attributes_for_editors(): void {
@@ -166,26 +166,26 @@ final class TemplateFunctionsTest extends TestCase {
 
 		$html = $this->capture(
 			function () {
-				pencil_image( 'hero.image', array( 'default' => 7 ) );
+				quill_image( 'hero.image', array( 'default' => 7 ) );
 			}
 		);
 
-		$this->assertStringContainsString( 'pencil-field pencil-field--image', $html );
-		$this->assertStringContainsString( 'data-pencil-attachment-id="7"', $html );
+		$this->assertStringContainsString( 'quill-field quill-field--image', $html );
+		$this->assertStringContainsString( 'data-quill-attachment-id="7"', $html );
 	}
 
 	public function test_class_list_sanitizes_dedupes_and_prepends_extras(): void {
 		$this->assertSame(
 			'base a bscript',
-			pencil_internal_class_list( array( 'class' => 'a  b<script> a' ), array( 'base' ) )
+			quill_internal_class_list( array( 'class' => 'a  b<script> a' ), array( 'base' ) )
 		);
 	}
 
 	public function test_image_style_handles_ratio_fit_and_position(): void {
-		$this->assertSame( '', pencil_internal_image_style( array() ) );
+		$this->assertSame( '', quill_internal_image_style( array() ) );
 		$this->assertSame(
 			'aspect-ratio:4 / 3;object-fit:contain;object-position:top left',
-			pencil_internal_image_style(
+			quill_internal_image_style(
 				array(
 					'aspect_ratio'    => '4:3',
 					'object_fit'      => 'contain',
@@ -193,11 +193,11 @@ final class TemplateFunctionsTest extends TestCase {
 				)
 			)
 		);
-		$this->assertSame( 'aspect-ratio:2;object-fit:cover', pencil_internal_image_style( array( 'aspect_ratio' => '2' ) ) );
+		$this->assertSame( 'aspect-ratio:2;object-fit:cover', quill_internal_image_style( array( 'aspect_ratio' => '2' ) ) );
 	}
 
 	public function test_image_style_rejects_unsafe_values(): void {
-		$style = pencil_internal_image_style(
+		$style = quill_internal_image_style(
 			array(
 				'aspect_ratio'    => 'url(evil)',
 				'object_fit'      => 'bogus',
@@ -211,13 +211,13 @@ final class TemplateFunctionsTest extends TestCase {
 	public function test_managed_region_hides_edit_metadata_from_visitors(): void {
 		$html = $this->capture(
 			function () {
-				pencil_managed_region_open( array( 'provider' => 'acf', 'class' => 'box' ) );
-				pencil_managed_region_close();
+				quill_managed_region_open( array( 'provider' => 'acf', 'class' => 'box' ) );
+				quill_managed_region_close();
 			}
 		);
 
-		$this->assertStringContainsString( 'class="pencil-managed-region box"', $html );
-		$this->assertStringNotContainsString( 'data-pencil-managed', $html );
+		$this->assertStringContainsString( 'class="quill-managed-region box"', $html );
+		$this->assertStringNotContainsString( 'data-quill-managed', $html );
 		$this->assertStringEndsWith( '</div>', $html );
 	}
 
@@ -226,12 +226,12 @@ final class TemplateFunctionsTest extends TestCase {
 
 		$html = $this->capture(
 			function () {
-				pencil_managed_region_open( array( 'provider' => 'acf', 'edit_url' => 'https://x.test/edit' ) );
+				quill_managed_region_open( array( 'provider' => 'acf', 'edit_url' => 'https://x.test/edit' ) );
 			}
 		);
 
-		$this->assertStringContainsString( 'data-pencil-managed="acf"', $html );
-		$this->assertStringContainsString( 'data-pencil-managed-label="Editable in ACF"', $html );
-		$this->assertStringContainsString( 'data-pencil-managed-edit-url="https://x.test/edit"', $html );
+		$this->assertStringContainsString( 'data-quill-managed="acf"', $html );
+		$this->assertStringContainsString( 'data-quill-managed-label="Editable in ACF"', $html );
+		$this->assertStringContainsString( 'data-quill-managed-edit-url="https://x.test/edit"', $html );
 	}
 }

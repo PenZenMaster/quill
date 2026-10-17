@@ -2,7 +2,7 @@
 <ruleset name="Quill">
     <description>WordPress Coding Standards for Quill.</description>
 
-    <file>pencil-by-rino.php</file>
+    <file>quill.php</file>
     <file>includes/</file>
 
     <exclude-pattern>dev-vendor/*</exclude-pattern>
@@ -25,7 +25,7 @@
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="text_domain" type="array">
-                <element value="pencil-by-rino" />
+                <element value="quill" />
             </property>
         </properties>
     </rule>

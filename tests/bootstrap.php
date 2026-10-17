@@ -10,7 +10,7 @@
  */
 
 define( 'ABSPATH', dirname( __DIR__ ) . '/' );
-define( 'PENCIL_VERSION', '0.9.2' );
+define( 'QUILL_VERSION', '0.9.2' );
 
 /**
  * Reset all stub state between tests.
@@ -190,8 +190,8 @@ function wp_attachment_is_image( $id ) {
 	return ! empty( $GLOBALS['_test_images'][ $id ] );
 }
 
-define( 'PENCIL_PLUGIN_PATH', ABSPATH );
-define( 'PENCIL_PLUGIN_URL', 'http://example.test/wp-content/plugins/quill/' );
+define( 'QUILL_PLUGIN_PATH', ABSPATH );
+define( 'QUILL_PLUGIN_URL', 'http://example.test/wp-content/plugins/quill/' );
 
 function esc_attr( $text ) {
 	return htmlspecialchars( (string) $text, ENT_QUOTES );
@@ -214,7 +214,7 @@ function sanitize_html_class( $class ) {
 }
 
 function wp_kses_post( $html ) {
-	return wp_kses( $html, Pencil_Fields::richtext_tags() + array( 'span' => array() ) );
+	return wp_kses( $html, Quill_Fields::richtext_tags() + array( 'span' => array() ) );
 }
 
 function wp_json_encode( $data ) {
@@ -366,7 +366,7 @@ class Quill_Test_Wpdb {
 	}
 }
 
-require_once ABSPATH . 'includes/class-pencil-fields.php';
-require_once ABSPATH . 'includes/class-pencil-activity.php';
-require_once ABSPATH . 'includes/class-pencil-plugin.php';
+require_once ABSPATH . 'includes/class-quill-fields.php';
+require_once ABSPATH . 'includes/class-quill-activity.php';
+require_once ABSPATH . 'includes/class-quill-plugin.php';
 require_once ABSPATH . 'includes/template-functions.php';

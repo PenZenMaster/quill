@@ -1,38 +1,38 @@
 ( function () {
 	'use strict';
 
-	const fields = Array.from( document.querySelectorAll( '[data-pencil-field]' ) );
-	const managedRegions = Array.from( document.querySelectorAll( '[data-pencil-managed]' ) );
-	const toolbar = document.querySelector( '[data-pencil-toolbar]' );
-	const toggle = document.querySelector( '[data-pencil-toggle]' );
-	const status = document.querySelector( '[data-pencil-status]' );
-	const highlight = document.querySelector( '[data-pencil-highlight]' );
-	const highlightLabel = document.querySelector( '[data-pencil-highlight-label]' );
-	const managedEdit = document.querySelector( '[data-pencil-managed-edit]' );
-	const popup = document.querySelector( '[data-pencil-popup]' );
-	const popupLabel = document.querySelector( '[data-pencil-popup-label]' );
-	const form = document.querySelector( '[data-pencil-form]' );
-	const textEditor = document.querySelector( '[data-pencil-text-editor]' );
-	const input = document.querySelector( '[data-pencil-input]' );
-	const richtextEditor = document.querySelector( '[data-pencil-richtext-editor]' );
-	const richtextInput = document.querySelector( '[data-pencil-richtext-input]' );
-	const tools = Array.from( document.querySelectorAll( '[data-pencil-command]' ) );
-	const linkRow = document.querySelector( '[data-pencil-link-row]' );
-	const linkInput = document.querySelector( '[data-pencil-link-input]' );
-	const linkApply = document.querySelector( '[data-pencil-link-apply]' );
-	const buttonEditor = document.querySelector( '[data-pencil-button-editor]' );
-	const buttonText = document.querySelector( '[data-pencil-button-text]' );
-	const buttonUrl = document.querySelector( '[data-pencil-button-url]' );
-	const imageEditor = document.querySelector( '[data-pencil-image-editor]' );
-	const imagePreview = document.querySelector( '[data-pencil-image-preview]' );
-	const replaceImage = document.querySelector( '[data-pencil-replace-image]' );
-	const error = document.querySelector( '[data-pencil-error]' );
-	const cancel = document.querySelector( '[data-pencil-cancel]' );
-	const save = document.querySelector( '[data-pencil-save]' );
+	const fields = Array.from( document.querySelectorAll( '[data-quill-field]' ) );
+	const managedRegions = Array.from( document.querySelectorAll( '[data-quill-managed]' ) );
+	const toolbar = document.querySelector( '[data-quill-toolbar]' );
+	const toggle = document.querySelector( '[data-quill-toggle]' );
+	const status = document.querySelector( '[data-quill-status]' );
+	const highlight = document.querySelector( '[data-quill-highlight]' );
+	const highlightLabel = document.querySelector( '[data-quill-highlight-label]' );
+	const managedEdit = document.querySelector( '[data-quill-managed-edit]' );
+	const popup = document.querySelector( '[data-quill-popup]' );
+	const popupLabel = document.querySelector( '[data-quill-popup-label]' );
+	const form = document.querySelector( '[data-quill-form]' );
+	const textEditor = document.querySelector( '[data-quill-text-editor]' );
+	const input = document.querySelector( '[data-quill-input]' );
+	const richtextEditor = document.querySelector( '[data-quill-richtext-editor]' );
+	const richtextInput = document.querySelector( '[data-quill-richtext-input]' );
+	const tools = Array.from( document.querySelectorAll( '[data-quill-command]' ) );
+	const linkRow = document.querySelector( '[data-quill-link-row]' );
+	const linkInput = document.querySelector( '[data-quill-link-input]' );
+	const linkApply = document.querySelector( '[data-quill-link-apply]' );
+	const buttonEditor = document.querySelector( '[data-quill-button-editor]' );
+	const buttonText = document.querySelector( '[data-quill-button-text]' );
+	const buttonUrl = document.querySelector( '[data-quill-button-url]' );
+	const imageEditor = document.querySelector( '[data-quill-image-editor]' );
+	const imagePreview = document.querySelector( '[data-quill-image-preview]' );
+	const replaceImage = document.querySelector( '[data-quill-replace-image]' );
+	const error = document.querySelector( '[data-quill-error]' );
+	const cancel = document.querySelector( '[data-quill-cancel]' );
+	const save = document.querySelector( '[data-quill-save]' );
 
 	if (
 		( ! fields.length && ! managedRegions.length ) ||
-		! window.pencilEditor ||
+		! window.quillEditor ||
 		! toolbar || ! toggle || ! highlight || ! highlightLabel || ! managedEdit || ! popup || ! form ||
 		! textEditor || ! richtextEditor || ! richtextInput || ! linkRow || ! buttonEditor || ! imageEditor
 	) {
@@ -53,14 +53,14 @@
 	let lastRange = null;
 	let linkRange = null;
 	const labels = {
-		openPencil: 'Open Pencil',
-		closePencil: 'Close Pencil',
+		openQuill: 'Open Quill',
+		closeQuill: 'Close Quill',
 		saved: 'Saved',
 		error: 'Something went wrong. Please try again.',
 		chooseImage: 'Choose image',
 		useImage: 'Use image',
 		selectText: 'Select the text you want to turn into a link first.',
-		...( window.pencilEditor.labels || {} ),
+		...( window.quillEditor.labels || {} ),
 	};
 
 	// Enter creates paragraphs, not divs, in the rich text editor.
@@ -68,10 +68,10 @@
 
 	toolbar.hidden = false;
 
-	const fieldType = ( field ) => ( editors[ field.dataset.pencilType ] ? field.dataset.pencilType : 'text' );
+	const fieldType = ( field ) => ( editors[ field.dataset.quillType ] ? field.dataset.quillType : 'text' );
 
 	// A button's editable text sits in its own span when the theme adds an icon.
-	const buttonLabel = ( field ) => field.querySelector( '.pencil-button__text' ) || field;
+	const buttonLabel = ( field ) => field.querySelector( '.quill-button__text' ) || field;
 
 	/**
 	 * Add a scheme to bare links, e.g. "example.com" or "hello@example.com".
@@ -112,20 +112,20 @@
 		}
 
 		const rect = target.getBoundingClientRect();
-		const isManaged = target.hasAttribute( 'data-pencil-managed' );
-		const editUrl = isManaged ? target.dataset.pencilManagedEditUrl : '';
+		const isManaged = target.hasAttribute( 'data-quill-managed' );
+		const editUrl = isManaged ? target.dataset.quillManagedEditUrl : '';
 
 		highlight.style.left = `${ Math.max( 0, rect.left - 5 ) }px`;
 		highlight.style.top = `${ Math.max( 0, rect.top - 5 ) }px`;
 		highlight.style.width = `${ rect.width + 10 }px`;
 		highlight.style.height = `${ rect.height + 10 }px`;
-		highlightLabel.textContent = isManaged ? target.dataset.pencilManagedLabel : target.dataset.pencilLabel;
+		highlightLabel.textContent = isManaged ? target.dataset.quillManagedLabel : target.dataset.quillLabel;
 		managedEdit.hidden = ! editUrl;
 		managedEdit.href = editUrl || '#';
-		managedEdit.textContent = editUrl ? target.dataset.pencilManagedActionLabel : '';
-		highlight.classList.toggle( 'pencil-highlight--managed', isManaged );
-		highlight.classList.toggle( 'pencil-highlight--with-action', Boolean( editUrl ) );
-		highlight.classList.toggle( 'pencil-highlight--label-inside', rect.top < 40 );
+		managedEdit.textContent = editUrl ? target.dataset.quillManagedActionLabel : '';
+		highlight.classList.toggle( 'quill-highlight--managed', isManaged );
+		highlight.classList.toggle( 'quill-highlight--with-action', Boolean( editUrl ) );
+		highlight.classList.toggle( 'quill-highlight--label-inside', rect.top < 40 );
 		highlight.hidden = false;
 	};
 
@@ -212,7 +212,7 @@
 		}
 
 		tools.forEach( ( tool ) => {
-			const command = tool.dataset.pencilCommand;
+			const command = tool.dataset.quillCommand;
 			const pressed = 'link' === command
 				? Boolean( getLinkAt( lastRange ) )
 				: document.queryCommandState( command );
@@ -290,7 +290,7 @@
 	};
 
 	/**
-	 * Turn browser editing markup into the tags Pencil stores. The server sanitizes again.
+	 * Turn browser editing markup into the tags Quill stores. The server sanitizes again.
 	 */
 	const cleanRichtext = ( html ) => {
 		// An inert document, so nothing in the markup loads or runs.
@@ -316,7 +316,7 @@
 
 	const closePopup = () => {
 		popup.hidden = true;
-		popup.classList.remove( 'pencil-popup--wide' );
+		popup.classList.remove( 'quill-popup--wide' );
 		selectedField = null;
 		toggle.disabled = false;
 		error.hidden = true;
@@ -332,11 +332,11 @@
 		const type = fieldType( field );
 
 		selectedField = field;
-		popupLabel.textContent = field.dataset.pencilLabel;
+		popupLabel.textContent = field.dataset.quillLabel;
 		Object.keys( editors ).forEach( ( key ) => {
 			editors[ key ].hidden = key !== type;
 		} );
-		popup.classList.toggle( 'pencil-popup--wide', 'richtext' === type );
+		popup.classList.toggle( 'quill-popup--wide', 'richtext' === type );
 		hideLinkRow();
 		error.hidden = true;
 		error.textContent = '';
@@ -345,7 +345,7 @@
 		setHighlight( field );
 
 		if ( 'image' === type ) {
-			pendingAttachmentId = Number.parseInt( field.dataset.pencilAttachmentId, 10 ) || 0;
+			pendingAttachmentId = Number.parseInt( field.dataset.quillAttachmentId, 10 ) || 0;
 			imagePreview.src = field.currentSrc || field.src;
 			imagePreview.alt = field.alt || '';
 			positionPopup( field );
@@ -369,7 +369,7 @@
 			const href = field.getAttribute( 'href' ) || '';
 
 			buttonText.value = buttonLabel( field ).textContent.trim();
-			buttonText.maxLength = Number.parseInt( field.dataset.pencilMaxLength, 10 ) || 40;
+			buttonText.maxLength = Number.parseInt( field.dataset.quillMaxLength, 10 ) || 40;
 			buttonUrl.value = '#' === href ? '' : href;
 			positionPopup( field );
 			window.requestAnimationFrame( () => {
@@ -380,7 +380,7 @@
 		}
 
 		input.value = field.textContent.trim();
-		input.maxLength = Number.parseInt( field.dataset.pencilMaxLength, 10 ) || 160;
+		input.maxLength = Number.parseInt( field.dataset.quillMaxLength, 10 ) || 160;
 		resizeInput();
 		window.requestAnimationFrame( () => {
 			input.focus();
@@ -390,9 +390,9 @@
 
 	const setActive = ( nextActive ) => {
 		active = nextActive;
-		document.documentElement.classList.toggle( 'pencil-selection-active', active );
+		document.documentElement.classList.toggle( 'quill-selection-active', active );
 		toggle.setAttribute( 'aria-pressed', active ? 'true' : 'false' );
-		( toggle.querySelector( '[data-pencil-toggle-label]' ) || toggle ).textContent = active ? labels.closePencil : labels.openPencil;
+		( toggle.querySelector( '[data-quill-toggle-label]' ) || toggle ).textContent = active ? labels.closeQuill : labels.openQuill;
 
 		fields.forEach( ( field ) => {
 			field.tabIndex = active ? 0 : -1;
@@ -431,7 +431,7 @@
 					return;
 				}
 
-				field.dataset.pencilAttachmentId = String( data.image.id );
+				field.dataset.quillAttachmentId = String( data.image.id );
 				field.src = data.image.url;
 				field.alt = data.image.alt;
 				field.width = data.image.width;
@@ -470,7 +470,7 @@
 			return;
 		}
 
-		const savedFieldId = selectedField.dataset.pencilField;
+		const savedFieldId = selectedField.dataset.quillField;
 
 		save.disabled = true;
 		cancel.disabled = true;
@@ -478,17 +478,17 @@
 
 		try {
 			const response = await window.fetch(
-				`${ window.pencilEditor.restUrl }${ encodeURIComponent( savedFieldId ) }`,
+				`${ window.quillEditor.restUrl }${ encodeURIComponent( savedFieldId ) }`,
 				{
 					method: 'POST',
 					credentials: 'same-origin',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-WP-Nonce': window.pencilEditor.nonce,
+						'X-WP-Nonce': window.quillEditor.nonce,
 					},
 					body: JSON.stringify( {
 						value: getSubmittedValue( fieldType( selectedField ) ),
-						page_id: Number.parseInt( window.pencilEditor.pageId, 10 ) || 0,
+						page_id: Number.parseInt( window.quillEditor.pageId, 10 ) || 0,
 					} ),
 				}
 			);
@@ -506,7 +506,7 @@
 			}
 
 			fields
-				.filter( ( field ) => field.dataset.pencilField === savedFieldId )
+				.filter( ( field ) => field.dataset.quillField === savedFieldId )
 				.forEach( ( field ) => updateField( field, data ) );
 
 			const savedField = selectedField;
@@ -534,7 +534,7 @@
 	} );
 
 	document.addEventListener( 'pointerover', ( event ) => {
-		const field = event.target.closest( '[data-pencil-field], [data-pencil-managed]' );
+		const field = event.target.closest( '[data-quill-field], [data-quill-managed]' );
 
 		if ( active && ! selectedField && field ) {
 			setHighlight( field );
@@ -542,7 +542,7 @@
 	} );
 
 	document.addEventListener( 'pointerout', ( event ) => {
-		const field = event.target.closest( '[data-pencil-field], [data-pencil-managed]' );
+		const field = event.target.closest( '[data-quill-field], [data-quill-managed]' );
 
 		if (
 			active &&
@@ -558,8 +558,8 @@
 	document.addEventListener(
 		'click',
 		( event ) => {
-			const field = event.target.closest( '[data-pencil-field]' );
-			const managedRegion = event.target.closest( '[data-pencil-managed]' );
+			const field = event.target.closest( '[data-quill-field]' );
+			const managedRegion = event.target.closest( '[data-quill-managed]' );
 
 			if ( ! active || selectedField ) {
 				return;
@@ -611,7 +611,7 @@
 		tool.addEventListener( 'mousedown', ( event ) => event.preventDefault() );
 
 		tool.addEventListener( 'click', () => {
-			const command = tool.dataset.pencilCommand;
+			const command = tool.dataset.quillCommand;
 
 			if ( 'link' === command ) {
 				toggleLinkRow();
@@ -695,19 +695,19 @@
 		}
 
 		mediaFrame.on( 'open', () => {
-			document.documentElement.classList.add( 'pencil-media-open' );
+			document.documentElement.classList.add( 'quill-media-open' );
 			mediaFrame.content.mode( 'browse' );
 			window.requestAnimationFrame( () => {
 				const modalContainer = document.querySelector( '.media-modal .media-frame' );
 
 				if ( modalContainer && modalContainer.getBoundingClientRect().height <= 0 ) {
-					console.warn( 'Pencil: the media modal is collapsed, probably because theme CSS targets a WordPress UI class such as .media-frame.' );
+					console.warn( 'Quill: the media modal is collapsed, probably because theme CSS targets a WordPress UI class such as .media-frame.' );
 				}
 			} );
 		} );
 
 		mediaFrame.on( 'close', () => {
-			document.documentElement.classList.remove( 'pencil-media-open' );
+			document.documentElement.classList.remove( 'quill-media-open' );
 
 			if ( selectedField ) {
 				setHighlight( selectedField );
@@ -734,7 +734,7 @@
 	input.addEventListener( 'input', resizeInput );
 
 	input.addEventListener( 'keydown', ( event ) => {
-		if ( 'Enter' === event.key && ! event.isComposing && 'text' === selectedField?.dataset.pencilType ) {
+		if ( 'Enter' === event.key && ! event.isComposing && 'text' === selectedField?.dataset.quillType ) {
 			event.preventDefault();
 			saveField();
 		}
@@ -783,12 +783,12 @@
 
 	const requestParams = new URLSearchParams( window.location.search );
 
-	if ( '1' === requestParams.get( 'pencil-edit' ) ) {
+	if ( '1' === requestParams.get( 'quill-edit' ) ) {
 		setActive( true );
 
-		const requestedFieldId = requestParams.get( 'pencil-field' );
+		const requestedFieldId = requestParams.get( 'quill-field' );
 		const requestedField = requestedFieldId
-			? fields.find( ( field ) => field.dataset.pencilField === requestedFieldId )
+			? fields.find( ( field ) => field.dataset.quillField === requestedFieldId )
 			: null;
 
 		if ( requestedField ) {

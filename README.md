@@ -23,4 +23,4 @@ Run in CMD:
 New code is test-driven: write a failing test, make it pass, refactor, keep `composer qa` green.
 
 ## Theme contract
-See `docs/agent-instructions.md` for the helper functions themes use.
+See `docs/agent-instructions.md`. Themes use `quill_text()`, `quill_richtext()`, `quill_button()`, `quill_image()` and `quill_managed_region_open()` / `quill_managed_region_close()`.
