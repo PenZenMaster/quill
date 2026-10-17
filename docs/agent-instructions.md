@@ -428,7 +428,7 @@ Rules:
 4. Make the markup accessible: every control has a `<label for>` and a matching `id`, required fields use `required`, email fields use `type="email"`, and the submit control is a real `<button type="submit">`. Style the form from the theme using your own prefixed classes.
 5. Render the form through a safe wrapper: if `shortcode_exists( 'hf_form' )`, wrap the shortcode output in a managed region with `provider` set to `html-forms`, `label` set to `Editable in HTML Forms`, and an `edit_url` of `admin.php?page=html-forms&view=edit&form_id={ID}` (use the forms list `admin.php?page=html-forms` until the ID is known). Otherwise show a short notice that tells visitors to use the phone number or email on the page. Never hardcode phone numbers or addresses into that notice.
 6. The managed-region **Edit** link needs the `edit_forms` capability, which only Administrators have by default. Tell the user that Editor-role clients cannot open it unless the capability is granted, and verify the link as an Administrator.
-7. Test before finishing: submit the form with valid and invalid data, confirm the submission appears under **HTML Forms > Submissions**, confirm the notification email is sent (use a mail catcher such as Mailpit on local sites), and confirm the page still loads with the form plugin deactivated.
+7. Test before finishing: submit the form with valid and invalid data, confirm the submission appears in the form's own **Submissions** tab (HTML Forms > the form > Submissions; there is no top-level Submissions menu), confirm the notification email is sent (use a mail catcher such as Mailpit on local sites), and confirm the page still loads with the form plugin deactivated.
 
 ## Required checks before completing a theme change
 

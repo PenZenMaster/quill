@@ -11,13 +11,16 @@ edits content only.
 - Full rename Pencil -> Quill (identifiers, files, text domain, REST namespace, CSS/JS).
 - `.gitattributes` for LF normalisation.
 - Private repo PenZenMaster/quill created and pushed.
+- Starter theme (quill-theme-starter) and first client theme (acme-plumbing-theme) built, tested on Local, findings fixed.
+- Theme contract extended: Forms (HTML Forms), defaults + manifest, shared saved values, menu seeding.
+- HTML Forms contact form verified end to end.
 
 ## In progress
 - Tests for `Quill_Admin` rendering (needs more WP stubs).
 
 ## Next
-- Manual smoke test in a real WordPress install (activate, edit a field, view History).
-- Document the theme-generation contract for Claude (based on `docs/agent-instructions.md`).
+- Browser verification of Acme: layout, edit mode, Replace image with different aspect ratios.
+- Feed any further findings into the starter and `docs/agent-instructions.md`.
 
 ## Workflow
 Test-driven: write a failing test first, then the code. Gate: `composer qa` (phpcs + phpunit).
