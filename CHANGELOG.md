@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Docs: agent instructions now cover forms (HTML Forms pattern, managed region, tests), mandatory field defaults, a field manifest, saved values shared across themes, and one-time menu seeding.
+
 - BREAKING: full rename Pencil -> Quill. Plugin file `quill.php`, text domain `quill`,
   classes `Quill_*`, constants `QUILL_*`, helpers `quill_text()`, `quill_richtext()`,
   `quill_button()`, `quill_image()`, `quill_managed_region_open/close()`, filter

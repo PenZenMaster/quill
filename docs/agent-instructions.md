@@ -97,6 +97,8 @@ When continuing development:
 
 Content continuity depends on stable field IDs and Quill storage. It does not require copying content into theme files or synchronising Quill with the AI tool.
 
+Saved values are keyed by field ID and shared by every theme on the same site. A different theme that reuses an ID such as `home.hero.title` will show the value saved for it earlier. This is correct for redesigns of one site. On a test site, clear the `quill_values` and `quill_field_registry` options between unrelated themes, and on client sites keep IDs unique to the client's content model.
+
 ## Non-negotiable rules
 
 1. The theme owns layout, HTML structure, CSS, JavaScript, responsive behaviour, animations, and functionality.
@@ -157,6 +159,7 @@ Use this when the user wants to manage menu items, labels, URLs, nesting, and or
 1. Register named menu locations with `register_nav_menus()`.
 2. Render them with `wp_nav_menu()` using semantic theme-controlled containers and classes.
 3. Create and assign the initial menu through WordPress rather than relying on an accidental page-list fallback.
+   Seed the menu once, from code, on theme activation: reuse an existing menu with the theme's name, add only the pages that are missing (match by page ID and by title so an old custom "Home" link is not duplicated), assign the location if it is empty, and record that seeding happened so it never runs again. Never modify a menu the client assigned to the location, and never re-add items the client removed.
 4. Treat the menu data as WordPress-owned content. Do not duplicate its labels or URLs in Quill fields.
 5. Mark the rendered menu as one WordPress-managed region and link its edit action to the appropriate WordPress menu screen when that screen exists.
 6. Verify that adding, removing, nesting, reordering, and renaming menu items in WordPress updates the frontend correctly.
@@ -245,6 +248,8 @@ global.contact.phone
 ```
 
 Do not use random IDs, presentation-only IDs, or IDs that change when markup changes.
+
+Every text, rich text, and button field must declare a non-empty `default`, including page-scoped fields on shared templates, so a new page never renders an empty box. Keep a manifest of every field ID and type in the theme (for example `quill-fields.json`) and add a test that fails when a template and the manifest disagree.
 
 The field ID is also what allows development to continue from the client's latest content. Renaming or replacing it creates a different field and can disconnect the saved value.
 
@@ -409,6 +414,22 @@ Examples of managed content:
 
 Do not replace such values with a Quill field. Do not save a second copy in Quill.
 
+## Forms (contact and lead forms)
+
+A form is interactive, plugin-owned content. Do not build one from Quill fields and do not hand-code a `<form>` that posts to nowhere. Use a form plugin, keep it the single owner of the form, and embed it in a Quill managed region so editors are sent to the right screen.
+
+Recommended plugin: **HTML Forms** (free, `html-forms`). It stores forms as a non-public `html-form` post type, renders them with the `[hf_form slug="..."]` shortcode, saves submissions to the database, and sends email notifications. Forms are plain HTML, so the theme can create the markup in code. The same pattern applies to any other form plugin.
+
+Rules:
+
+1. Create the form from code, once, and never overwrite it afterwards. After creation the client owns it. Create it with `wp_insert_post()` using post type `html-form`, a stable slug, the field markup as `post_content`, and settings in the `_hf_settings` post meta (`save_submissions`, `required_fields` and `email_fields` as comma-separated field names, and an `actions` list with an `email` action). Run this on theme activation and again on the first administrator visit to wp-admin if the plugin was activated later. Make it idempotent by looking the form up by slug first.
+2. Send notifications to `get_option( 'admin_email' )` unless the brief says otherwise. Never hardcode a client's email address in theme code.
+3. Field labels, validation and success messages belong to the form, not to Quill. Do not create Quill fields for them. A heading or intro text around the form is normal static content and does use Quill fields.
+4. Make the markup accessible: every control has a `<label for>` and a matching `id`, required fields use `required`, email fields use `type="email"`, and the submit control is a real `<button type="submit">`. Style the form from the theme using your own prefixed classes.
+5. Render the form through a safe wrapper: if `shortcode_exists( 'hf_form' )`, wrap the shortcode output in a managed region with `provider` set to `html-forms`, `label` set to `Editable in HTML Forms`, and an `edit_url` of `admin.php?page=html-forms&view=edit&form_id={ID}` (use the forms list `admin.php?page=html-forms` until the ID is known). Otherwise show a short notice that tells visitors to use the phone number or email on the page. Never hardcode phone numbers or addresses into that notice.
+6. The managed-region **Edit** link needs the `edit_forms` capability, which only Administrators have by default. Tell the user that Editor-role clients cannot open it unless the capability is granted, and verify the link as an Administrator.
+7. Test before finishing: submit the form with valid and invalid data, confirm the submission appears under **HTML Forms > Submissions**, confirm the notification email is sent (use a mail catcher such as Mailpit on local sites), and confirm the page still loads with the form plugin deactivated.
+
 ## Required checks before completing a theme change
 
 - Every public page has a WordPress Page record and appears under **Pages**.
@@ -431,6 +452,9 @@ Do not replace such values with a Quill field. Do not save a second copy in Quil
 - The chosen navigation approach works: theme-defined links resolve to real pages, or the registered WordPress menu can be edited and reordered successfully.
 - The theme has a website-specific name, description, version, author, text domain, and a 1200 × 900 screenshot.
 - With Quill temporarily deactivated, every public page still renders its initial content without a fatal error.
+- Every text, rich text, and button field declares a non-empty default, and every field is listed in the theme's field manifest.
+- Forms are owned by a form plugin, embedded in a managed region with a verified edit URL, tested end to end (submission stored, notification sent), and the page works with the form plugin inactive.
+- The seeded menu contains every public page exactly once and is not re-seeded on later activations.
 - The browser console and PHP logs contain no new errors on the tested pages.
 - The theme has been checked at representative desktop and mobile widths.
 - Templates remain semantic, accessible, and layout-controlled by the theme.
@@ -459,3 +483,5 @@ Do not replace such values with a Quill field. Do not save a second copy in Quil
 - Mark a mixed-owner card or loop item as though one provider owns the complete layout.
 - Add a provider edit link without verifying that it opens the correct record or settings screen.
 - Build Elementor, Divi, WPBakery, or Gutenberg-style layout editing into the theme.
+- Build a contact form out of Quill fields, hardcode a recipient email address, or ship a form that is not stored and tested.
+- Overwrite or re-seed a form or menu after the client has had the chance to edit it.
