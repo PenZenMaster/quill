@@ -8,6 +8,7 @@ edits content only.
 - Pencil v0.9.2 imported unmodified (commit 1).
 - Tooling: composer, phpcs (WPCS), phpunit, pre-commit hook, GitHub Actions CI.
 - Characterization tests for `Pencil_Fields` (17 tests).
+- Private repo PenZenMaster/quill created and pushed.
 
 ## In progress
 - Characterization tests for `Pencil_Activity`, `Pencil_Plugin`, template functions.
