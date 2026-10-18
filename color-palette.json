@@ -1,0 +1,47 @@
+{
+	"palette1": {
+		"color": "#3377BB"
+	},
+	"palette2": {
+		"color": "#33AAEE"
+	},
+	"palette3": {
+		"color": "#1A202C"
+	},
+	"palette4": {
+		"color": "#2D3748"
+	},
+	"palette5": {
+		"color": "#4A5568"
+	},
+	"palette6": {
+		"color": "#718096"
+	},
+	"palette7": {
+		"color": "#EDF2F7"
+	},
+	"palette8": {
+		"color": "#F7FAFC"
+	},
+	"palette9": {
+		"color": "#ffffff"
+	},
+	"palette10": {
+		"color": "#FfFfFf"
+	},
+	"palette11": {
+		"color": "#13612e"
+	},
+	"palette12": {
+		"color": "#1159af"
+	},
+	"palette13": {
+		"color": "#b82105"
+	},
+	"palette14": {
+		"color": "#f7630c"
+	},
+	"palette15": {
+		"color": "#f5a524"
+	}
+}
