@@ -14,12 +14,18 @@ edits content only.
 - Starter theme (quill-theme-starter) and first client theme (acme-plumbing-theme) built, tested on Local, findings fixed.
 - Theme contract extended: Forms (HTML Forms), defaults + manifest, shared saved values, menu seeding.
 - HTML Forms contact form verified end to end.
+- Acme browser QA passed (visual and edit modes).
+- Skippy YAML integration (issues #1-#8): Phases 0-3 done. Discovery in `docs/discovery/`; tooling in PenZenMaster/quill-site-builder (schema, validator, from-skippy adapter, manifest, diff gate, copy check, theme check, emit-site-data/fields); profiles in PenZenMaster/quill-client-profiles; first generated theme PenZenMaster/rank-rocket-theme (tested on Local, form stored and emailed).
 
 ## In progress
 - Tests for `Quill_Admin` rendering (needs more WP stubs).
 
 ## Next
-- Browser verification of Acme: layout, edit mode, Replace image with different aspect ratios.
+- Owner browser review of the Rank Rocket theme (layout, mobile, colours, edit mode); supply real brand colours.
+- Owner supplies images: hero (3:2) and 8 service images (4:3); then build Phase 4 media import.
+- Review and approve the Salvo Metal Works profile (auto-drafted, no provenance).
+- Phase 4 provisioner and adapters, Phase 5 QA gates, Phase 6 pilot, Phase 7 optional (see `docs/skippy-yaml-integration-plan.md`).
+- Owner closes issues #1-#4 after review.
 - Feed any further findings into the starter and `docs/agent-instructions.md`.
 
 ## Workflow
